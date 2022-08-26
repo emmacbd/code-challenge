@@ -16,8 +16,7 @@ and split them up into their component parts:
 ![Example of Parserator parsing the string "123 main st chicago il"](images/usaddress.gif)
 
 To complete this challenge, I had to teach myself enough about Python and Django to set up the backend, and use my knowledge
-of vanilla JavaScript to finish building out the front end. In this README I'll highlight some of the resources I used to complete 
-this challenge and some takeaway learnings from this process.
+of vanilla JavaScript to finish building out the front end. In this README I'll highlight my development process and some of the resources I used to complete this challenge.
 
 ### Tech Stack
    * Python/Django
