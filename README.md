@@ -1,111 +1,73 @@
 # DataMade Code Challenge: Parserator
+### **Table of Contents**
+- [About the Challenge](#about-the-challenge)
+- [Development Process](#development-process)
+- [Helpful Resources](#helpful-resources)
+- [Where To Find Me](#where-to-find-me)
 
-Welcome to the DataMade code challenge! 👋
+## **About the Challenge**
+Hi, I'm Emma and welcome to my submission for the DataMade code challenge! 👋
 
-Your task is to recreate the **address parsing form** in DataMade's
+For this challenge I recreated the **address parsing form** in DataMade's
 [Parserator](https://parserator.datamade.us) web service. Parserator can take
 input strings that represent addresses (like `123 main st chicago il`)
 and split them up into their component parts:
 
 ![Example of Parserator parsing the string "123 main st chicago il"](images/usaddress.gif)
 
-In this repo, we've provided the basic scaffolding of the templates, views, and
-routes that comprise the app. You'll need to flesh out certain code blocks in
-the frontend and backend code in order to send API requests, process them on
-the server, and display the results to the user.
+To complete this challenge, I had to teach myself enough about Python and Django to set up the backend, and use my knowledge
+of vanilla JavaScript to finish building out the front end. In this README I'll highlight my development process and some of the resources I used to complete this challenge.
 
-You can use vanilla JavaScript or jQuery to complete the JavaScript portions of
-this assessment.
+### Tech Stack
+   * Python/Django
+   * Pytest
+   * Vanilla JavaScript
+   * Docker
 
-To get started, fork this repo and follow the instructions below.
+### Running the App Locally
+* run `docker-compose up`
+* Open  http://localhost:8000 and check out the app!
 
-## Installation
+## Run Unit Tests
+* run `docker-compose -f docker-compose.yml -f tests/docker-compose.yml run --rm app`
 
-Development requires a local installation of [Docker](https://docs.docker.com/install/)
-and [Docker Compose](https://docs.docker.com/compose/install/). These are the
-only two system-level dependencies you should need.
+## **Development Process**
+### **Timing**
+Though the prompt suggested a 2 hour time block to complete,  I spent significantly longer completing this challenge. While I highly value work-life balance, I enjoyed this opportunity to learn and put in extra effort due to my high interest in working with DataMade.
 
-Once you have Docker and Docker Compose installed, build the application containers:
+I anticipated needing to familiarize myself with Python and Django, since my area of familiarity lies primarily in JavaScript/HTML/CSS.
 
-```
-docker-compose build
-```
+Before I started coding, I spent time exploring the existing code base. I figured out key functions and flows, and also identified what I could ignore. Even with a small application as this challenge, it’s easy to get too many fingers into too many code pies, so I needed to stay focused on deliverables. After understanding the flow of data, it was time to start coding.
 
-Next, run the app:
+### **Work Flow**
+Completing Steps 1 and 2 was challenging, mostly due to being unsure of syntax or how to read the feedback from my code since I’d never used Python or Docker to print logs. 
 
-```
-docker-compose up
-```
+To continue progressing, I switched to Step 5, the testing portion.  That way, I could get my tests to shed light on what my get requests from the `Parserator` API were returning. My experience with TDD using Mocha/Chai helped me understand the basics of Pytest unit testing. 
 
-The app will log to the console, and you should be able to visit it at http://localhost:8000.
+I also set up a mock server on Postman to get practice sending requests for testing, though the Parserator docs were my primary source for understanding the shape of my request responses.
 
-## Completing the challenge
+I completed the vanilla JS portion smoothly and even added some styling!
 
-Once you have the app up and running on your computer, you'll need to flesh out
-certain code blocks to complete the parsing interface.
+### **Documentation**
+After implementing TypeScript in my last few React projects, I’ve grown to appreciate the value typing code to reduce pesky type errors. It also helps developers unfamiliar with the code understand the flow of data faster and feel more confident when contributing to a project. 
 
-**Note:** You can use the following address strings for testing during implementation:
+I implemented block tags such as `@param` and `@returns`, to provide documentation for what data types each function should expect and return, as well as code comments to provide further context for any developers reading through the code.
 
-- ✅ Valid: `123 main st chicago il`
-- ❌ Invalid: `123 main st chicago il 123 main st`
+### **Linter Note**
+* Known linter error related to ES6 module export syntax. Code follows ES6 standards.
 
-### Step 1: Implement the `parse` method
+## **Helpful Resources**
+I struggled to find helpful documentation on Django. I started with their docs, but found them difficult to use for someone so unfamiliar with the framework (and with Python in general). I relied heavily on my googling skills, as well as several of DataMade's docs to get the information I needed to complete this challenge.
 
-In `parserator_web/views.py`, use [`usaddress`](https://github.com/datamade/usaddress)
-to implement the `AddressParse.parse()` method. It should return two pieces of
-data:
+Despite these hurdles, I'm excited to expand my knowledge of Python and Django. I hope the following resources can help other developers get up to speed more quickly.
 
-- `address_components`: The parsed address
-- `address_type`: The type of address provided
+***Resources***
+* [Testing Django with Pytest](https://djangostars.com/blog/django-pytest-testing/)
+* [Django REST API Tutorial](https://www.askpython.com/django/django-rest-api)
+* [Another Django REST Tutorial](https://www.simplifiedpython.net/django-rest-api-tutorial/)
+* [DataMade Pytest Docs](https://github.com/datamade/testing-guidelines/blob/master/framework-specific-patterns.md#django)
+* [Parserator API Docs](https://parserator.datamade.us/api-docs/)
+* [Morale Booster](https://www.youtube.com/watch?v=MvOE2ZwWrKE)
 
-### Step 2: Complete the API endpoint
-
-In `parserator_web/views.py`, complete the `AddressParse.get()` method to return
-three pieces of data:
-
-- `input_string`: The string that the user sent
-- `address_components`: A dictionary of parsed components that comprise the address,
-   in the format `{address_part: tag}` (returned by `AddressParse.parse()`)
-- `address_type`: A string representing type of the parsed address (returned by `AddressParse.parse()`)
-
-Don't forget to handle strings that cannot be parsed and return errors!
-
-### Step 3: Wire up the form to send requests to the API
-
-In `parserator_web/templates/parserator_web/index.html`, fill out the `<script>`
-tag in the `extra_js` block, adding JavaScript code that will use the form
-to send form data to the API endpoint fleshed out in Step 2.
-
-### Step 4: Display results from the API
-
-In `parserator_web/templates/parserator_web/index.html`, extend the `<script>`
-tag in the `extra_js` block to display results from the API endpoint in the
-hidden element `<div id="address-results">`.
-
-Make sure that if the API raises an error, it displays this error to the user.
-
-### Step 5: Add unit tests
-
-The `tests/` directory contains two stubbed tests. Complete each test by making
-a request to the API endpoint and verifying that it passes or fails, and
-returns the expected output.
-
-You can run the tests using Docker:
-
-```bash
-docker-compose -f docker-compose.yml -f tests/docker-compose.yml run --rm app
-```
-
-Note that, in addition to running the unit tests, the testing script will lint
-your JavaScript and Python code. Don't forget to fix any linting errors these
-commands surface!
-
-Not familiar with `pytest`? Consult [our testing guidelines](https://github.com/datamade/testing-guidelines)
-for quick start instructions, plus tips and tricks for testing Django
-applications.
-
-### Step 6: Submit your work
-
-To submit your work, create a feature branch for your code, commit your changes,
-push your commits up to your fork, and open up a pull request against `master`.
-Finally, drop a link to your pull request in your application.
+## **Where To Find Me**
+Emma Brooke-Davidson | [GitHub](https://github.com/emmacbd) &#124; [LinkedIn](https://www.linkedin.com/in/emmacbd/)
